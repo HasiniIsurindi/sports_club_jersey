@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sports Club Jersey — Faculty of Medicine, University of Ruhuna</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;800;900&family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void: #050f18;
+    --bg-panel: #0c2032;
+    --bg-panel-2: #0a1a29;
+    --teal: #0f5470;
+    --teal-deep: #082c3e;
+    --cyan: #52e9d6;
+    --cyan-dim: rgba(82,233,214,0.18);
+    --white: #eef6f8;
+    --muted: #7f9aa6;
+    --pulse: #ff5470;
+    --line: rgba(238,246,248,0.09);
+    --radius: 2px;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background: var(--void);
+    color: var(--white);
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
+    position:relative;
+  }
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      linear-gradient(rgba(82,233,214,0.035) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(82,233,214,0.035) 1px, transparent 1px);
+    background-size: 42px 42px;
+    pointer-events:none;
+    z-index:0;
+    mask-image: radial-gradient(ellipse at center, black 0%, transparent 75%);
+  }
+  .wrap{max-width:1180px; margin:0 auto; padding:0 32px; position:relative; z-index:1;}
+  h1,h2,h3,.display{ font-family:'Orbitron', sans-serif; letter-spacing:0.02em; }
+  .mono{ font-family:'IBM Plex Mono', monospace; letter-spacing:0.04em; }
+  a{color:inherit; text-decoration:none;}
+  ::selection{ background: var(--cyan); color:var(--void); }
+
+  /* ===== NAV ===== */
+  header{
+    position:sticky; top:0; z-index:50;
+    backdrop-filter: blur(14px);
+    background: rgba(5,15,24,0.72);
+    border-bottom:1px solid var(--line);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; padding:16px 32px; max-width:1180px; margin:0 auto;}
+  .brand{ display:flex; align-items:center; gap:12px; }
+  .brand-mark{
+    width:34px; height:34px; border:1.5px solid var(--cyan); border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Orbitron'; font-size:11px; font-weight:800; color:var(--cyan);
+    box-shadow:0 0 14px var(--cyan-dim);
+  }
+  .brand-text{ font-size:12.5px; line-height:1.3; }
+  .brand-text b{ display:block; font-size:13.5px; letter-spacing:0.06em; }
+  .brand-text span{ color:var(--muted); font-family:'IBM Plex Mono'; font-size:10.5px; letter-spacing:0.08em; }
+  .nav-cta{
+    font-family:'Orbitron'; font-size:11.5px; font-weight:700; letter-spacing:0.08em;
+    padding:11px 20px; background:var(--cyan); color:var(--void); border-radius:var(--radius);
+    box-shadow:0 0 24px var(--cyan-dim);
+    transition:transform .15s ease, box-shadow .15s ease;
+    white-space:nowrap;
+  }
+  .nav-cta:hover{ transform:translateY(-1px); box-shadow:0 0 30px rgba(82,233,214,0.4); }
+
+  /* ===== HERO ===== */
+  .hero{
+    padding:76px 0 40px;
+    display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;
+  }
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px;
+    font-family:'IBM Plex Mono'; font-size:11.5px; letter-spacing:0.14em; color:var(--cyan);
+    border:1px solid rgba(82,233,214,0.3); padding:6px 12px; border-radius:20px;
+    margin-bottom:22px;
+  }
+  .eyebrow .dot{ width:6px; height:6px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan); animation:blink 1.6s infinite; }
+  @keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+  .hero h1{
+    font-size:clamp(2.6rem, 5vw, 4.1rem); line-height:1.03; font-weight:800;
+    margin-bottom:22px;
+  }
+  .hero h1 .accent{ color:var(--cyan); }
+  .hero p.lede{ color:var(--muted); font-size:16.5px; line-height:1.65; max-width:460px; margin-bottom:34px; }
+  .hero-actions{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+  .btn-primary{
+    font-family:'Orbitron'; font-weight:700; font-size:13.5px; letter-spacing:0.06em;
+    background:var(--cyan); color:var(--void); padding:16px 30px; border-radius:var(--radius);
+    box-shadow:0 0 30px var(--cyan-dim);
+    transition:transform .15s ease, box-shadow .15s ease;
+    display:inline-block;
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 0 40px rgba(82,233,214,0.45); }
+  .price-tag{ display:flex; flex-direction:column; }
+  .price-tag .amount{ font-family:'Orbitron'; font-size:28px; font-weight:800; color:var(--white); }
+  .price-tag .label{ font-family:'IBM Plex Mono'; font-size:10.5px; color:var(--muted); letter-spacing:0.1em; }
+
+  .hero-visual{
+    position:relative;
+    border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    background:linear-gradient(160deg, var(--teal-deep), #051019);
+  }
+  .hero-visual img{ width:100%; display:block; }
+  .hero-visual .scanline{
+    position:absolute; left:0; right:0; height:2px; background:linear-gradient(90deg, transparent, var(--cyan), transparent);
+    opacity:0.55; animation:scan 3.2s linear infinite;
+  }
+  @keyframes scan{ 0%{ top:0%; } 100%{ top:100%; } }
+  .hero-visual .corner{ position:absolute; width:22px; height:22px; border-color:var(--cyan); }
+  .hero-visual .c-tl{ top:14px; left:14px; border-top:2px solid; border-left:2px solid; }
+  .hero-visual .c-br{ bottom:14px; right:14px; border-bottom:2px solid; border-right:2px solid; }
+
+  /* ===== PULSE DIVIDER (signature) ===== */
+  .pulse-divider{ padding:10px 0 6px; position:relative; z-index:1; }
+  .pulse-divider svg{ width:100%; height:64px; display:block; }
+  .pulse-path{
+    fill:none; stroke:var(--cyan); stroke-width:2; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray: 1400; stroke-dashoffset:1400;
+    animation: draw 2.6s ease-out forwards, glow 2.4s ease-in-out 2.6s infinite;
+  }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @keyframes glow{ 0%,100%{ filter:drop-shadow(0 0 2px var(--cyan)); } 50%{ filter:drop-shadow(0 0 9px var(--cyan)); } }
+
+  /* ===== SECTION SHELL ===== */
+  section{ padding:88px 0; position:relative; z-index:1; }
+  .section-head{ margin-bottom:52px; max-width:640px; }
+  .section-head .tag{ font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--cyan); letter-spacing:0.14em; margin-bottom:14px; display:block; }
+  .section-head h2{ font-size:clamp(1.7rem,3vw,2.4rem); font-weight:800; margin-bottom:14px; }
+  .section-head p{ color:var(--muted); font-size:15.5px; line-height:1.6; }
+
+  /* ===== GALLERY ===== */
+  .gallery{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:14px;
+  }
+  .gallery figure{
+    position:relative; border-radius:4px; overflow:hidden; border:1px solid var(--line);
+    aspect-ratio:3/4; background:var(--bg-panel);
+  }
+  .gallery figure:first-child{ grid-column:span 2; grid-row:span 2; aspect-ratio:auto; }
+  .gallery img{ width:100%; height:100%; object-fit:cover; display:block; filter:saturate(1.05) contrast(1.02); transition:transform .5s ease; }
+  .gallery figure:hover img{ transform:scale(1.045); }
+  .gallery figcaption{
+    position:absolute; left:0; right:0; bottom:0; padding:14px 16px;
+    background:linear-gradient(to top, rgba(5,15,24,0.92), transparent);
+    font-family:'IBM Plex Mono'; font-size:11px; color:var(--cyan); letter-spacing:0.06em;
+  }
+
+  /* ===== VITALS / SPECS ===== */
+  .vitals{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .vitals-visual{ position:relative; background:linear-gradient(160deg, var(--teal-deep), #051019); }
+  .vitals-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .vitals-data{ padding:44px; }
+  .vital-row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:18px 0; border-bottom:1px solid var(--line);
+  }
+  .vital-row:last-child{ border-bottom:none; }
+  .vital-row .k{ font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
+  .vital-row .v{ font-family:'Orbitron'; font-size:15px; font-weight:700; text-align:right; }
+  .vital-row .v small{ display:block; font-family:'Inter'; font-weight:400; color:var(--muted); font-size:11.5px; margin-top:3px; }
+  .vital-price{ color:var(--cyan) !important; font-size:24px !important; }
+
+  /* ===== COLOUR CALIBRATION ===== */
+  .color-panel{
+    display:grid; grid-template-columns:1fr 1fr; gap:0;
+    border:1px solid var(--line); border-radius:6px; overflow:hidden;
+    background:var(--bg-panel);
+  }
+  .swatch-block{ position:relative; min-height:340px; }
+  .swatch-block .swatch{ position:absolute; inset:0; background:#01344D; }
+  .swatch-block .corner{ position:absolute; width:22px; height:22px; border-color:var(--cyan); z-index:2; }
+  .swatch-block .c-tl{ top:14px; left:14px; border-top:2px solid; border-left:2px solid; }
+  .swatch-block .c-br{ bottom:14px; right:14px; border-bottom:2px solid; border-right:2px solid; }
+  .swatch-crosshair{
+    position:absolute; top:50%; left:50%; width:64px; height:64px;
+    transform:translate(-50%,-50%);
+    border:1px solid rgba(238,246,248,0.35); border-radius:50%;
+  }
+  .swatch-crosshair::before, .swatch-crosshair::after{
+    content:""; position:absolute; background:rgba(238,246,248,0.35);
+  }
+  .swatch-crosshair::before{ top:50%; left:-10px; right:-10px; height:1px; transform:translateY(-50%); }
+  .swatch-crosshair::after{ left:50%; top:-10px; bottom:-10px; width:1px; transform:translateX(-50%); }
+  .color-readout{ padding:44px; display:flex; flex-direction:column; }
+  .calibration-note{ color:var(--muted); font-size:13.5px; line-height:1.65; margin-top:18px; }
+
+  /* ===== DESIGN DETAIL ===== */
+  .detail-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .detail-grid.reverse{ direction:rtl; }
+  .detail-grid.reverse > *{ direction:ltr; }
+  .detail-img{ border:1px solid var(--line); border-radius:6px; overflow:hidden; background:var(--bg-panel); }
+  .detail-img img{ width:100%; display:block; }
+  .detail-copy .num{ font-family:'IBM Plex Mono'; color:var(--cyan); font-size:12px; letter-spacing:0.12em; margin-bottom:14px; display:block; }
+  .detail-copy h3{ font-size:1.7rem; font-weight:800; margin-bottom:16px; }
+  .detail-copy p{ color:var(--muted); font-size:15px; line-height:1.7; margin-bottom:14px; }
+  .detail-copy ul{ list-style:none; margin-top:20px; }
+  .detail-copy li{ padding:10px 0 10px 22px; border-top:1px solid var(--line); position:relative; font-size:14.5px; color:var(--white); }
+  .detail-copy li::before{ content:"›"; position:absolute; left:0; color:var(--cyan); font-family:'Orbitron'; }
+
+  .detail-block + .detail-block{ margin-top:110px; }
+
+  /* ===== SIZE CHART ===== */
+  .size-panel{ border:1px solid var(--line); border-radius:6px; background:var(--bg-panel); padding:40px; }
+  table{ width:100%; border-collapse:collapse; }
+  th, td{ text-align:center; padding:14px 10px; font-family:'IBM Plex Mono'; font-size:13px; }
+  th{ color:var(--cyan); letter-spacing:0.08em; border-bottom:1px solid var(--line); font-weight:600; }
+  td{ color:var(--muted); border-bottom:1px solid var(--line); }
+  tr:last-child td{ border-bottom:none; }
+  td:first-child, th:first-child{ text-align:left; color:var(--white); font-weight:600; }
+  .size-note{ display:flex; align-items:center; gap:10px; margin-top:24px; font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--muted); }
+  .size-note .dot{ width:6px; height:6px; border-radius:50%; background:var(--cyan); box-shadow:0 0 8px var(--cyan); }
+
+  /* ===== FINAL CTA ===== */
+  .final-cta{
+    border:1px solid rgba(82,233,214,0.35); border-radius:8px;
+    background:radial-gradient(120% 140% at 20% 0%, rgba(82,233,214,0.12), transparent 60%), var(--bg-panel);
+    padding:64px 56px; display:flex; justify-content:space-between; align-items:center; gap:40px; flex-wrap:wrap;
+  }
+  .final-cta h2{ font-size:2rem; font-weight:800; max-width:480px; }
+  .final-cta p{ color:var(--muted); margin-top:10px; font-size:14.5px; max-width:440px; }
+  .final-cta .cta-side{ display:flex; flex-direction:column; align-items:flex-start; gap:14px; }
+
+  /* ===== CONTACT ===== */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .contact-card{
+    display:flex; flex-direction:column; gap:6px;
+    border:1px solid var(--line); border-radius:6px; background:var(--bg-panel);
+    padding:28px 30px; position:relative; overflow:hidden;
+    transition:transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+  }
+  .contact-card::before{
+    content:""; position:absolute; top:0; left:0; width:3px; height:100%;
+    background:var(--cyan); box-shadow:0 0 12px var(--cyan);
+  }
+  .contact-card:hover{ transform:translateY(-3px); border-color:rgba(82,233,214,0.4); box-shadow:0 8px 30px rgba(82,233,214,0.12); }
+  .contact-role{ font-family:'IBM Plex Mono'; font-size:11.5px; color:var(--muted); letter-spacing:0.1em; text-transform:uppercase; }
+  .contact-number{ font-family:'Orbitron'; font-size:22px; font-weight:700; color:var(--white); }
+  .contact-action{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--cyan); letter-spacing:0.08em; margin-top:6px; }
+
+  footer{ padding:44px 0 60px; border-top:1px solid var(--line); position:relative; z-index:1; }
+  .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  .foot-row .mono{ color:var(--muted); font-size:11.5px; }
+
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  @media (max-width: 880px){
+    .hero{ grid-template-columns:1fr; padding-top:48px; }
+    .gallery{ grid-template-columns:repeat(2,1fr); }
+    .gallery figure:first-child{ grid-column:span 2; }
+    .vitals{ grid-template-columns:1fr; }
+    .color-panel{ grid-template-columns:1fr; }
+    .detail-grid{ grid-template-columns:1fr; gap:28px; }
+    .detail-grid.reverse{ direction:ltr; }
+    .final-cta{ padding:44px 26px; }
+    .contact-grid{ grid-template-columns:1fr; }
+    nav{ padding:14px 20px; }
+    .wrap{ padding:0 20px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <nav>
+    <div class="brand">
+      <div class="brand-mark">FoM</div>
+      <div class="brand-text">
+        <b>SPORTS CLUB</b>
+        <span>FACULTY OF MEDICINE · UNI. OF RUHUNA</span>
+      </div>
+    </div>
+    <a href="#order" class="nav-cta">ORDER NOW</a>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero wrap" style="padding-top:76px;">
+    <div>
+      <div class="eyebrow"><span class="dot"></span> NEW RELEASE · 2026 KIT</div>
+      <h1>Engineered for<br>the <span class="accent">clinical</span><br>athlete.</h1>
+      <p class="lede">The official jersey of the Sports Club, Faculty of Medicine — built for the track, the ward, and everywhere between. Honeycomb-knit performance fabric with a diagnostic-sharp silhouette.</p>
+      <div class="hero-actions">
+        <a href="#order" class="btn-primary">ORDER NOW →</a>
+        <div class="price-tag">
+          <span class="amount">Rs. 1,600</span>
+          <span class="label">ALL SIZES · IN STOCK</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="scanline"></div>
+      <div class="corner c-tl"></div>
+      <div class="corner c-br"></div>
+      <img src="images/male-studio.png" alt="Sports Club Faculty of Medicine jersey, front view, studio shot">
+    </div>
+  </section>
+
+  <!-- PULSE DIVIDER -->
+  <div class="pulse-divider wrap">
+    <svg viewBox="0 0 1180 64" preserveAspectRatio="none">
+      <path class="pulse-path" d="M0,32 L260,32 L285,32 L300,6 L318,58 L335,20 L350,32 L400,32 L430,10 L455,54 L480,32 L900,32 L930,4 L955,60 L980,32 L1180,32" />
+    </svg>
+  </div>
+
+  <!-- GALLERY -->
+  <section class="wrap reveal">
+    <div class="section-head">
+      <span class="tag">// FIELD NOTES</span>
+      <h2>Tested on the track.</h2>
+      <p>Shot on location at the University of Ruhuna athletics complex. The same jersey, on the same runners, in real conditions.</p>
+    </div>
+    <div class="gallery">
+      <figure>
+        <img src="images/group-track.jpg" alt="Two models wearing the Sports Club Faculty of Medicine jersey on the running track">
+        <figcaption>01 — TRACKSIDE, GOLDEN HOUR</figcaption>
+      </figure>
+      <figure>
+        <img src="images/female-studio.jpg" alt="Female model wearing the jersey, studio shot">
+        <figcaption>02 — STUDIO, FRONT</figcaption>
+      </figure>
+      <figure>
+        <img src="images/female-back-track.png" alt="Female model showing the back print of the jersey">
+        <figcaption>03 — BACK PRINT</figcaption>
+      </figure>
+      <figure>
+        <img src="images/male-back-hall.png" alt="Male model showing the back print outside the Sports Club entrance">
+        <figcaption>04 — SPORTS COMPLEX</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- VITALS / SPECS -->
+  <section class="wrap reveal">
+    <div class="section-head">
+      <span class="tag">// SPECIFICATION SHEET</span>
+      <h2>Vitals of the kit.</h2>
+      <p>Everything you need to know, read out like a chart.</p>
+    </div>
+    <div class="vitals">
+      <div class="vitals-visual">
+        <img src="images/flat-frontback.png" alt="Flat lay of jersey, front and back">
+      </div>
+      <div class="vitals-data">
+        <div class="vital-row">
+          <span class="k">Price</span>
+          <span class="v vital-price">Rs. 1,600</span>
+        </div>
+        <div class="vital-row">
+          <span class="k">Fabric</span>
+          <span class="v">Honeycomb Mesh<small>Breathable, quick-dry performance knit</small></span>
+        </div>
+        <div class="vital-row">
+          <span class="k">Sizes</span>
+          <span class="v">All Sizes<small>XS — XXL available</small></span>
+        </div>
+        <div class="vital-row">
+          <span class="k">Collar</span>
+          <span class="v">Mandarin Notch<small>Contrast white-piped cuffs</small></span>
+        </div>
+        <div class="vital-row">
+          <span class="k">Print</span>
+          <span class="v">Sublimated<small>Fade-resistant, wash-safe</small></span>
+        </div>
+        <div class="vital-row">
+          <span class="k">Fit</span>
+          <span class="v">Athletic<small>Unisex cut, true to size</small></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COLOUR CALIBRATION -->
+  <section class="wrap reveal">
+    <div class="section-head">
+      <span class="tag">// COLOUR CALIBRATION</span>
+      <h2>The true colour, on record.</h2>
+      <p>Studio lighting, sunset shots, and camera sensors all shift how blue reads on screen. This is the exact, calibrated shade — no filters, no guesswork.</p>
+    </div>
+    <div class="color-panel">
+      <div class="swatch-block">
+        <div class="corner c-tl"></div>
+        <div class="corner c-br"></div>
+        <div class="swatch"></div>
+        <div class="swatch-crosshair"></div>
+      </div>
+      <div class="color-readout">
+        <div class="vital-row">
+          <span class="k">Hex</span>
+          <span class="v vital-price">#01344D</span>
+        </div>
+        <div class="vital-row">
+          <span class="k">RGB</span>
+          <span class="v">1, 52, 77</span>
+        </div>
+        <div class="vital-row">
+          <span class="k">Name</span>
+          <span class="v">Faculty Deep Teal</span>
+        </div>
+        <div class="vital-row">
+          <span class="k">Pantone match</span>
+          <span class="v">≈ 3035 C<small>Closest reference, fabric dye may vary slightly</small></span>
+        </div>
+        <p class="calibration-note">Every photo on this page was shot under different light — golden-hour track, indoor hallway, studio softbox — so the same jersey can look lighter, greener, or more washed out from shot to shot. The swatch on the left is the fixed, calibrated reference colour of the actual fabric, unaffected by lighting or camera.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGN DETAIL -->
+  <section class="wrap">
+    <div class="section-head reveal">
+      <span class="tag">// DESIGN BREAKDOWN</span>
+      <h2>Built with intent.</h2>
+      <p>Every panel of this jersey was designed to say something about who wears it.</p>
+    </div>
+
+    <div class="detail-block detail-grid reveal">
+      <div class="detail-img">
+        <img src="images/male-studio.png" alt="Close view of jersey front with crest and MEDICINE wordmark">
+      </div>
+      <div class="detail-copy">
+        <span class="num">01 — FRONT</span>
+        <h3>The crest, front and centre.</h3>
+        <p>The Faculty crest sits on the left chest above the MEDICINE wordmark — bold, condensed, unmistakable from across the field. A mandarin collar with a clean front placket gives it the edge of a competition kit, not a plain tee.</p>
+        <ul>
+          <li>Faculty of Medicine crest, left chest</li>
+          <li>Condensed "MEDICINE" wordmark</li>
+          <li>Notch collar, contrast piping</li>
+          <li>Ribbed cuffs, white trim</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="detail-block detail-grid reverse reveal">
+      <div class="detail-img">
+        <img src="images/flat-frontback.png" alt="Close view of jersey back with Faculty of Medicine and Sports Club text">
+      </div>
+      <div class="detail-copy">
+        <span class="num">02 — BACK</span>
+        <h3>Wear the faculty on your back.</h3>
+        <p>"Faculty of Medicine, University of Ruhuna" sits above a bold "Sports Club" script — the full identity, printed where a teammate reads it first: your back, on the run.</p>
+        <ul>
+          <li>"FACULTY OF MEDICINE" + university line</li>
+          <li>Signature "Sports Club" script mark</li>
+          <li>Room reserved below for name & number</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="detail-block detail-grid reveal">
+      <div class="detail-img">
+        <img src="images/group-track.jpg" alt="Diagonal lightning pattern texture on the jersey fabric">
+      </div>
+      <div class="detail-copy">
+        <span class="num">03 — PATTERN</span>
+        <h3>A pulse, not a print.</h3>
+        <p>Diagonal fractures run across a deep teal base — half lightning bolt, half heartbeat trace. The gradient runs darkest at the hem and lifts toward the shoulder, so the jersey reads calm at rest and sharp in motion.</p>
+        <ul>
+          <li>Deep teal-navy base colourway</li>
+          <li>Directional diagonal fracture pattern</li>
+          <li>Tonal gradient, dark hem to lit shoulder</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- SIZE CHART -->
+  <section class="wrap reveal">
+    <div class="section-head">
+      <span class="tag">// FIT CHART</span>
+      <h2>Find your size.</h2>
+      <p>Measurements in inches, laid flat. All sizes are in stock and ready to order.</p>
+    </div>
+    <div class="size-panel">
+      <table>
+        <thead>
+          <tr><th>Size</th><th>Chest</th><th>Length</th><th>Shoulder</th><th>Sleeve</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>XS</td><td>36"</td><td>25"</td><td>16"</td><td>7.5"</td></tr>
+          <tr><td>S</td><td>38"</td><td>26"</td><td>17"</td><td>8"</td></tr>
+          <tr><td>M</td><td>40"</td><td>27"</td><td>18"</td><td>8.5"</td></tr>
+          <tr><td>L</td><td>42"</td><td>28"</td><td>19"</td><td>9"</td></tr>
+          <tr><td>XL</td><td>44"</td><td>29"</td><td>20"</td><td>9.5"</td></tr>
+          <tr><td>XXL</td><td>46"</td><td>30"</td><td>21"</td><td>10"</td></tr>
+        </tbody>
+      </table>
+      <div class="size-note"><span class="dot"></span> Unisex sizing — order your regular tee size for a true athletic fit.</div>
+    </div>
+  </section>
+
+  <!-- FINAL CTA -->
+  <section class="wrap" id="order">
+    <div class="final-cta reveal">
+      <div>
+        <h2>Ready to suit up?</h2>
+        <p>Rs. 1,600 · Honeycomb fabric · All sizes available. Orders are placed through our official order form.</p>
+      </div>
+      <div class="cta-side">
+        <a href="https://forms.gle/REPLACE-WITH-YOUR-GOOGLE-FORM-LINK" target="_blank" rel="noopener" class="btn-primary">ORDER NOW →</a>
+        <span class="mono" style="color:var(--muted); font-size:11px;">Opens the official order form in a new tab</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="wrap reveal">
+    <div class="section-head">
+      <span class="tag">// DIRECT LINE</span>
+      <h2>Prefer to call?</h2>
+      <p>Reach the club committee directly for orders, sizing questions, or bulk requests.</p>
+    </div>
+    <div class="contact-grid">
+      <a href="tel:+94778607219" class="contact-card">
+        <span class="contact-role">Najath</span>
+        <span class="contact-number">077 860 7219</span>
+        <span class="contact-action">CALL NOW →</span>
+      </a>
+      <a href="tel:+94766528011" class="contact-card">
+        <span class="contact-role">Oshada</span>
+        <span class="contact-number">076 652 8011</span>
+        <span class="contact-action">CALL NOW →</span>
+      </a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="mono">© 2026 SPORTS CLUB, FACULTY OF MEDICINE — UNIVERSITY OF RUHUNA</span>
+    <span class="mono">DESIGNED FOR THE TRACK. WORN FOR THE WARD.</span>
+  </div>
+</footer>
+
+<script>
+  const items = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{
+      if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.15 });
+  items.forEach(i=>io.observe(i));
+</script>
+
+</body>
+</html>
