@@ -94,6 +94,21 @@
   .hero h1 .accent{ color:var(--cyan); }
   .hero p.lede{ color:var(--muted); font-size:16.5px; line-height:1.65; max-width:460px; margin-bottom:34px; }
   .hero-actions{ display:flex; align-items:center; gap:22px; flex-wrap:wrap; }
+  .stock-bar{ margin-top:30px; max-width:420px; }
+  .stock-bar-labels{ display:flex; justify-content:space-between; margin-bottom:8px; }
+  .stock-bar-labels .mono{ font-size:11px; letter-spacing:0.08em; color:var(--pulse); }
+  .stock-bar-labels .stock-pct{ color:var(--cyan); }
+  .stock-track{
+    width:100%; height:8px; border-radius:20px; background:rgba(238,246,248,0.08);
+    border:1px solid var(--line); overflow:hidden; position:relative;
+  }
+  .stock-fill{
+    height:100%; width:0%; border-radius:20px;
+    background:linear-gradient(90deg, var(--pulse), var(--cyan));
+    box-shadow:0 0 10px rgba(82,233,214,0.5);
+    animation: fillStock 1.6s ease-out 0.4s forwards;
+  }
+  @keyframes fillStock{ to{ width:40%; } }
   .btn-primary{
     font-family:'Orbitron'; font-weight:700; font-size:13.5px; letter-spacing:0.06em;
     background:var(--cyan); color:var(--void); padding:16px 30px; border-radius:var(--radius);
@@ -105,6 +120,8 @@
   .price-tag{ display:flex; flex-direction:column; }
   .price-tag .amount{ font-family:'Orbitron'; font-size:28px; font-weight:800; color:var(--white); }
   .price-tag .label{ font-family:'IBM Plex Mono'; font-size:10.5px; color:var(--muted); letter-spacing:0.1em; }
+  .old-price{ text-decoration:line-through; color:var(--muted); font-size:0.6em; font-weight:500; margin-left:4px; }
+  .old-price-vital{ font-size:0.55em; }
 
   .hero-visual{
     position:relative;
@@ -164,6 +181,15 @@
   }
   .vitals-visual{ position:relative; background:linear-gradient(160deg, var(--teal-deep), #051019); }
   .vitals-visual img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .zoomable{ position:relative; overflow:hidden; width:100%; height:100%; cursor:zoom-in; }
+  .zoomable img{ transition:transform .06s linear; transform-origin:center center; }
+  .zoomable.zoomed img{ transform:scale(2.2); cursor:zoom-out; }
+  .zoom-hint{
+    position:absolute; top:16px; right:16px; z-index:3;
+    font-family:'IBM Plex Mono'; font-size:10.5px; letter-spacing:0.08em;
+    color:var(--cyan); background:rgba(5,15,24,0.75); border:1px solid rgba(82,233,214,0.35);
+    padding:6px 12px; border-radius:20px; pointer-events:none;
+  }
   .vitals-data{ padding:44px; }
   .vital-row{
     display:flex; justify-content:space-between; align-items:baseline;
@@ -252,6 +278,21 @@
   .contact-number{ font-family:'Orbitron'; font-size:22px; font-weight:700; color:var(--white); }
   .contact-action{ font-family:'IBM Plex Mono'; font-size:11px; color:var(--cyan); letter-spacing:0.08em; margin-top:6px; }
 
+  /* ===== DISCLAIMER ===== */
+  .disclaimer-panel{
+    display:flex; gap:20px; align-items:flex-start;
+    border:1px solid var(--line); border-radius:6px; background:var(--bg-panel-2);
+    padding:26px 30px;
+  }
+  .disclaimer-icon{
+    flex-shrink:0; width:26px; height:26px; border-radius:50%;
+    border:1px solid rgba(82,233,214,0.4); color:var(--cyan);
+    display:flex; align-items:center; justify-content:center;
+    font-family:'IBM Plex Mono'; font-size:13px; font-style:italic; margin-top:2px;
+  }
+  .disclaimer-title{ display:block; font-size:11px; color:var(--cyan); letter-spacing:0.12em; margin-bottom:8px; }
+  .disclaimer-text{ color:var(--muted); font-size:13.5px; line-height:1.7; max-width:760px; }
+
   footer{ padding:44px 0 60px; border-top:1px solid var(--line); position:relative; z-index:1; }
   .foot-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
   .foot-row .mono{ color:var(--muted); font-size:11.5px; }
@@ -295,12 +336,21 @@
     <div>
       <div class="eyebrow"><span class="dot"></span> NEW RELEASE · 2026 KIT</div>
       <h1>Engineered for<br>the <span class="accent">clinical</span><br>athlete.</h1>
-      <p class="lede">The official jersey of the Sports Club, Faculty of Medicine — built for the track, the ward, and everywhere between. Honeycomb-knit performance fabric with a diagnostic-sharp silhouette.</p>
+      <p class="lede">The official jersey of the Sports Club, Faculty of Medicine — built for the track, the ward, and everywhere between. Wetlook-knit performance fabric with a diagnostic-sharp silhouette.</p>
       <div class="hero-actions">
         <a href="#order" class="btn-primary">ORDER NOW →</a>
         <div class="price-tag">
-          <span class="amount">Rs. 1,600</span>
-          <span class="label">ALL SIZES · IN STOCK</span>
+          <span class="amount">Rs. 1,500 <span class="old-price">Rs. 1,600</span></span>
+          <span class="label">PRE-ORDER PRICE · ALL SIZES</span>
+        </div>
+      </div>
+      <div class="stock-bar">
+        <div class="stock-bar-labels">
+          <span class="mono">⚠ LIMITED STOCK REMAINING</span>
+          <span class="mono stock-pct">40%</span>
+        </div>
+        <div class="stock-track">
+          <div class="stock-fill"></div>
         </div>
       </div>
     </div>
@@ -308,7 +358,7 @@
       <div class="scanline"></div>
       <div class="corner c-tl"></div>
       <div class="corner c-br"></div>
-      <img src="images/male-studio.png" alt="Sports Club Faculty of Medicine jersey, front view, studio shot">
+      <img src="images/male-studio.jpg" alt="Sports Club Faculty of Medicine jersey, front view, studio shot">
     </div>
   </section>
 
@@ -324,11 +374,11 @@
     <div class="section-head">
       <span class="tag">// FIELD NOTES</span>
       <h2>Tested on the track.</h2>
-      <p>Shot on location at the University of Ruhuna athletics complex. The same jersey, on the same runners, in real conditions.</p>
+      <p>Every detail is designed with performance in mind. From intense training sessions to competitive moments, our jersey is tested to deliver comfort, durability, and confidence when you need it most.</p>
     </div>
     <div class="gallery">
       <figure>
-        <img src="images/group-track.jpg" alt="Two models wearing the Sports Club Faculty of Medicine jersey on the running track">
+        <img src="images/group-track.png" alt="Two models wearing the Sports Club Faculty of Medicine jersey on the running track">
         <figcaption>01 — TRACKSIDE, GOLDEN HOUR</figcaption>
       </figure>
       <figure>
@@ -355,24 +405,27 @@
     </div>
     <div class="vitals">
       <div class="vitals-visual">
-        <img src="images/flat-frontback.png" alt="Flat lay of jersey, front and back">
+        <div class="zoomable" id="jerseyZoom">
+          <img src="images/flat-frontback.png" alt="Flat lay of jersey, front and back" id="zoomImg">
+        </div>
+        <span class="zoom-hint">🔍 HOVER TO ZOOM</span>
       </div>
       <div class="vitals-data">
         <div class="vital-row">
           <span class="k">Price</span>
-          <span class="v vital-price">Rs. 1,600</span>
+          <span class="v vital-price">Rs. 1,500 <span class="old-price old-price-vital">Rs. 1,600</span></span>
         </div>
         <div class="vital-row">
           <span class="k">Fabric</span>
-          <span class="v">Honeycomb Mesh<small>Breathable, quick-dry performance knit</small></span>
+          <span class="v">Wetlook Mesh<small>Breathable, quick-dry performance knit</small></span>
         </div>
         <div class="vital-row">
           <span class="k">Sizes</span>
-          <span class="v">All Sizes<small>XS — XXL available</small></span>
+          <span class="v">All Sizes<small>XXS — 5XL available</small></span>
         </div>
         <div class="vital-row">
           <span class="k">Collar</span>
-          <span class="v">Mandarin Notch<small>Contrast white-piped cuffs</small></span>
+          <span class="v">Chinese Half collar with zipper<small>Contrast white-piped cuffs</small></span>
         </div>
         <div class="vital-row">
           <span class="k">Print</span>
@@ -391,7 +444,7 @@
     <div class="section-head">
       <span class="tag">// COLOUR CALIBRATION</span>
       <h2>The true colour, on record.</h2>
-      <p>Studio lighting, sunset shots, and camera sensors all shift how blue reads on screen. This is the exact, calibrated shade — no filters, no guesswork.</p>
+      <p>The box below displays the official color of the jersey, offering the closest representation of the fabric's true appearance.</p>
     </div>
     <div class="color-panel">
       <div class="swatch-block">
@@ -432,7 +485,7 @@
 
     <div class="detail-block detail-grid reveal">
       <div class="detail-img">
-        <img src="images/male-studio.png" alt="Close view of jersey front with crest and MEDICINE wordmark">
+        <img src="images/Sports-action.jpg" alt="Close view of jersey front with crest and MEDICINE wordmark">
       </div>
       <div class="detail-copy">
         <span class="num">01 — FRONT</span>
@@ -465,7 +518,7 @@
 
     <div class="detail-block detail-grid reveal">
       <div class="detail-img">
-        <img src="images/group-track.jpg" alt="Diagonal lightning pattern texture on the jersey fabric">
+        <img src="images/back.png" alt="Diagonal lightning pattern texture on the jersey fabric">
       </div>
       <div class="detail-copy">
         <span class="num">03 — PATTERN</span>
@@ -490,15 +543,19 @@
     <div class="size-panel">
       <table>
         <thead>
-          <tr><th>Size</th><th>Chest</th><th>Length</th><th>Shoulder</th><th>Sleeve</th></tr>
+          <tr><th>Size</th><th>Chest</th><th>Length</th><th>Collar size</th></tr>
         </thead>
         <tbody>
-          <tr><td>XS</td><td>36"</td><td>25"</td><td>16"</td><td>7.5"</td></tr>
-          <tr><td>S</td><td>38"</td><td>26"</td><td>17"</td><td>8"</td></tr>
-          <tr><td>M</td><td>40"</td><td>27"</td><td>18"</td><td>8.5"</td></tr>
-          <tr><td>L</td><td>42"</td><td>28"</td><td>19"</td><td>9"</td></tr>
-          <tr><td>XL</td><td>44"</td><td>29"</td><td>20"</td><td>9.5"</td></tr>
-          <tr><td>XXL</td><td>46"</td><td>30"</td><td>21"</td><td>10"</td></tr>
+          <tr><td>XXS</td><td>17"</td><td>24"</td><td>14"</td></tr>
+          <tr><td>XS</td><td>18"</td><td>25"</td><td>14.5"</td></tr>
+          <tr><td>S</td><td>19"</td><td>26"</td><td>15"</td></tr>
+          <tr><td>M</td><td>20"</td><td>27"</td><td>15.5"</td></tr>
+          <tr><td>L</td><td>21"</td><td>28"</td><td>16"</td></tr>
+          <tr><td>XL</td><td>22"</td><td>29"</td><td>16.5"</td></tr>
+          <tr><td>2XL</td><td>23"</td><td>30"</td><td>17"</td></tr>
+          <tr><td>3XL</td><td>24"</td><td>31"</td><td>17.5"</td></tr>
+          <tr><td>4XL</td><td>25"</td><td>32"</td><td>18"</td></tr>
+          <tr><td>5XL</td><td>26"</td><td>32"</td><td>18.5"</td></tr>
         </tbody>
       </table>
       <div class="size-note"><span class="dot"></span> Unisex sizing — order your regular tee size for a true athletic fit.</div>
@@ -510,10 +567,10 @@
     <div class="final-cta reveal">
       <div>
         <h2>Ready to suit up?</h2>
-        <p>Rs. 1,600 · Honeycomb fabric · All sizes available. Orders are placed through our official order form.</p>
+        <p>Rs. 1,500 pre-order price · Wet look fabric · All sizes available. Orders are placed through our official order form.</p>
       </div>
       <div class="cta-side">
-        <a href="https://forms.gle/REPLACE-WITH-YOUR-GOOGLE-FORM-LINK" target="_blank" rel="noopener" class="btn-primary">ORDER NOW →</a>
+        <a href="https://forms.gle/dqM69tGijKEZYkXF8" target="_blank" rel="noopener" class="btn-primary">ORDER NOW →</a>
         <span class="mono" style="color:var(--muted); font-size:11px;">Opens the official order form in a new tab</span>
       </div>
     </div>
@@ -523,7 +580,7 @@
   <section class="wrap reveal">
     <div class="section-head">
       <span class="tag">// DIRECT LINE</span>
-      <h2>Prefer to call?</h2>
+      <h2>For more info</h2>
       <p>Reach the club committee directly for orders, sizing questions, or bulk requests.</p>
     </div>
     <div class="contact-grid">
@@ -539,6 +596,18 @@
       </a>
     </div>
   </section>
+
+  <!-- DISCLAIMER -->
+  <section class="wrap reveal">
+    <div class="disclaimer-panel">
+      <span class="disclaimer-icon">i</span>
+      <div>
+        <span class="disclaimer-title mono">PREVIEW DISCLAIMER</span>
+        <p class="disclaimer-text">Please note that the model images featured on this website are AI-generated and are intended solely to showcase the jersey's appearance and true colour. As a result, minor differences may exist in the final product. For the most accurate representation of the official design, please refer to the jersey mockup displayed above.</p>
+      </div>
+    </div>
+  </section>
+
 </main>
 
 <footer>
@@ -556,6 +625,22 @@
     });
   }, { threshold: 0.15 });
   items.forEach(i=>io.observe(i));
+
+  // Zoom interaction for the jersey product image
+  const zoomBox = document.getElementById('jerseyZoom');
+  const zoomImg = document.getElementById('zoomImg');
+  if(zoomBox && zoomImg){
+    zoomBox.addEventListener('mousemove', (e)=>{
+      const rect = zoomBox.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      zoomImg.style.transformOrigin = `${x}% ${y}%`;
+      zoomBox.classList.add('zoomed');
+    });
+    zoomBox.addEventListener('mouseleave', ()=>{ zoomBox.classList.remove('zoomed'); });
+    // Tap-to-toggle for touch devices
+    zoomBox.addEventListener('touchstart', ()=>{ zoomBox.classList.toggle('zoomed'); }, {passive:true});
+  }
 </script>
 
 </body>
